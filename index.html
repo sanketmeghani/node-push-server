@@ -3,9 +3,15 @@
 
 <head>
     <title>Simple Push Server</title>
+    <script src="socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        let onLoad = () => {
+            console.log('Page loaded');
+        }
+    </script>
 </head>
 
-<body>
+<body onload="onLoad()">
     <h1>Push Server Notification</h1>
 </body>
 
