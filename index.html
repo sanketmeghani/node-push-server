@@ -5,16 +5,28 @@
     <title>Simple Push Server</title>
     <script src="socket.io/socket.io.js"></script>
     <script type="text/javascript">
-    let onLoad = () => {}
+        let server = io();
 
-    let pushNotification = () => {
-        let title = document.getElementById('title').value;
-        let message = document.getElementById('message').value;
-        let notification = {
-            title,
-            message
+        let receiveNotification = (notification) => {
+            console.log('Received server-notification', notification);
         };
-    }
+
+        let onLoad = () => {
+            console.log('Listening for server-notification event');
+            server.on('server-notification', receiveNotification);
+        };
+
+        let pushNotification = () => {
+            let title = document.getElementById('title').value;
+            let message = document.getElementById('message').value;
+            let notification = {
+                title,
+                message
+            };
+
+            console.log('Emitting notification', notification);
+            server.emit('submit-notification', notification);
+        };
     </script>
 </head>
 

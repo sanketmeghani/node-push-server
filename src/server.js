@@ -2,7 +2,7 @@ let http = require('http');
 let socketio = require('socket.io');
 let fs = require('fs');
 
-let clientSockets = [];
+let clients = [];
 
 let clientHandler = (request, response) => {
 
@@ -21,16 +21,28 @@ let clientHandler = (request, response) => {
 let pushNotification = (notification) => {
 
     console.log('Pushing notification', JSON.stringify(notification));
-    clientSockets.map((socket) => socket.emit('server-notification', notification));
+    clients.map((client) => client.emit('server-notification', notification));
 };
 
 let server = http.createServer(clientHandler);
 let io = socketio.listen(server);
 
-io.sockets.on('connection', (socket) => {
-    
-    socket.on('push', pushNotification);
-    clientSockets.push(socket);
+io.sockets.on('connection', (client) => {
+
+    console.log('New client connected');    
+    clients.push(client);
+    console.log('Total connected clients: ', clients.length);
+
+    client.on('submit-notification', pushNotification);
+
+    client.on('disconnect', () => {
+
+        console.log('Client disconncted');
+        
+        let index = clients.indexOf(client);
+        clients.splice(index, 1);
+        console.log('Total connected clients: ', clients.length);
+    });
 });
 
 server.listen(9090);
