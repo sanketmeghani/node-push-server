@@ -5,14 +5,41 @@
     <title>Simple Push Server</title>
     <script src="socket.io/socket.io.js"></script>
     <script type="text/javascript">
-        let onLoad = () => {
-            console.log('Page loaded');
-        }
+    let onLoad = () => {}
+
+    let pushNotification = () => {
+        let title = document.getElementById('title').value;
+        let message = document.getElementById('message').value;
+        let notification = {
+            title,
+            message
+        };
+    }
     </script>
 </head>
 
 <body onload="onLoad()">
     <h1>Push Server Notification</h1>
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td>
+                <input id="title" type="text" name="title">
+            </td>
+        </tr>
+        <tr>
+            <td>Message:</td>
+            <td>
+                <input id="message" type="text" name="message">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="button" name="submit" value="Send Notification" onclick="pushNotification()">
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
