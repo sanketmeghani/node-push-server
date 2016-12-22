@@ -18,10 +18,10 @@
 
         let pushNotification = () => {
             let title = document.getElementById('title').value;
-            let message = document.getElementById('message').value;
+            let text = document.getElementById('text').value;
             let notification = {
                 title,
-                message
+                text
             };
 
             console.log('Emitting notification', notification);
@@ -42,7 +42,7 @@
         <tr>
             <td>Message:</td>
             <td>
-                <input id="message" type="text" name="message">
+                <input id="text" type="text" name="text">
             </td>
         </tr>
         <tr>
